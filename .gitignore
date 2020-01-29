@@ -1,6 +1,4 @@
 # !!!!! Remove the following two lines when preparing a release !!!!!
-node_modules/
-lib/
 
 # Rest pulled from https://github.com/github/gitignore/blob/master/Node.gitignore
 # Logs
