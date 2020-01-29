@@ -38,7 +38,7 @@ async function run(): Promise<void> {
     return;
   }
 
-  const isPublic = Boolean(core.getInput('public'));
+  const isPublic = Boolean(core.getInput('public')) ?? false;
 
   const packageFile = './package.json';
   const pkg = JSON.parse((await fs.readFile(packageFile)).toString());
@@ -49,7 +49,7 @@ async function run(): Promise<void> {
 
   if (Boolean(pkg.private) === isPublic) {
     core.setFailed(
-      "'public' input parameter and package.json 'private' parameter mismatch"
+      `'public' input parameter (${isPublic}) and package.json 'private' parameter (${Boolean(pkg.private)}) mismatch`
     );
     return;
   }
