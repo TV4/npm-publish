@@ -10,7 +10,7 @@
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
     "pack": "ncc build",
-    "prepare-deploy": "npm install && npm run build && npm prune --production",
+    "prepare-deploy": "npm install && npm run build && npm prune --production && git add --force lib && git add --force node_modules",
     "all": "npm run build && npm run format && npm run lint && npm run pack"
   },
   "repository": {
