@@ -57,6 +57,9 @@ async function run(): Promise<void> {
   await exec(`npm config set @tv4-media:registry https:${fixUrl(npmUrl)}`);
   await exec(`npm config set '${fixUrl(npmUrl)}:_authToken' '${npmToken}'`);
 
+  await exec('cat .npmrc');
+  await exec('env');
+
   await exec(`npm whoami --registry https:${fixUrl(npmUrl)}`);
 
   /* check if the deps where installed in a previous step */
