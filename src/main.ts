@@ -40,21 +40,10 @@ async function run(): Promise<void> {
     return;
   }
 
-  const isPublic = (core.getInput('public') ?? '').toString() === 'true';
-
   const packageFile = './package.json';
   const pkg = JSON.parse((await fs.readFile(packageFile)).toString());
   if (!pkg.name.match(/^@tv4-media\//)) {
     core.setFailed('Cannot publish packages outside @tv4-media scope');
-    return;
-  }
-
-  if (Boolean(pkg.private) === isPublic) {
-    core.setFailed(
-      `'public' input parameter (${isPublic}) and package.json 'private' parameter (${Boolean(
-        pkg.private
-      )}) mismatch`
-    );
     return;
   }
 
