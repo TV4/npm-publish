@@ -57,7 +57,7 @@ async function run(): Promise<void> {
   await exec(`npm config set @tv4-media:registry https:${fixUrl(npmUrl)}`);
   await exec(`npm config set '${fixUrl(npmUrl)}:_authToken' '${npmToken}'`);
 
-  await exec('npm whoami');
+  await exec(`npm whoami --registry https:${fixUrl(npmUrl)}`);
 
   /* check if the deps where installed in a previous step */
   const isInstalled = await isDir('node_modules');
