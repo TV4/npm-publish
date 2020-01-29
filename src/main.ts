@@ -38,7 +38,7 @@ async function run(): Promise<void> {
     return;
   }
 
-  const isPublic = Boolean(core.getInput('public')) ?? false;
+  const isPublic = (core.getInput('public') ?? '').toString() === 'true';
 
   const packageFile = './package.json';
   const pkg = JSON.parse((await fs.readFile(packageFile)).toString());
