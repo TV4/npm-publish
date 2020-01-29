@@ -1,4 +1,5 @@
 import {promises as fs} from 'fs';
+import path from 'path';
 import * as core from '@actions/core';
 import {exec} from '@actions/exec';
 
@@ -49,16 +50,22 @@ async function run(): Promise<void> {
 
   if (Boolean(pkg.private) === isPublic) {
     core.setFailed(
-      `'public' input parameter (${isPublic}) and package.json 'private' parameter (${Boolean(pkg.private)}) mismatch`
+      `'public' input parameter (${isPublic}) and package.json 'private' parameter (${Boolean(
+        pkg.private
+      )}) mismatch`
     );
     return;
   }
 
-  await exec(`npm config set @tv4-media:registry https:${fixUrl(npmUrl)}`);
-  await exec(`npm config set '${fixUrl(npmUrl)}:_authToken' '${npmToken}'`);
+  await fs.writeFile(
+    path.join(process.env.HOME || '~', '.npmrc'),
+    `registry=https://registry.npmjs.org/\n@tv4-media:registry=https:${fixUrl(
+      npmUrl
+    )}\n${fixUrl(npmUrl)}:_authToken=${npmToken}`
+  );
 
-  await exec('cat .npmrc');
   await exec('env');
+  await exec('cat .npmrc');
 
   await exec(`npm whoami --registry https:${fixUrl(npmUrl)}`);
 
