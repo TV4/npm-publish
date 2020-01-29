@@ -1,10 +1,22 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: "Publish to NPM"
+description: "Publishes @tv4-media Javascript packages to NPM(Github Packages)"
+author: "Fredrik Westmark <fredrik.westmark@tv4.se>"
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+    npmurl:
+        description: "Url to your NPM service of choice. Defaults to Github Packages"
+        required: false
+        default: "npm.pkg.github.com"
+    token:
+        description: "NPM publish token. Defaults to GITHUB_TOKEN"
+        required: false
+        default: "${GITHUB_TOKEN}"
+    dir:
+        description: "Custom package directory in a monorepo"
+        required: false
+    public:
+        description: "Indicate if the package should be publicly available or not. Defaults to false."
+        required: false
+        default: false
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+    using: "node12"
+    main: "dist/index.js"
