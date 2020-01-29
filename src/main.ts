@@ -21,8 +21,9 @@ const fixUrl = (url: string): string =>
   `//${url.replace(/^\/*/, '').replace(/\/*$/, '')}/`;
 
 async function run(): Promise<void> {
-  const dir = core.getInput('dir');
+  const dir = path.join(process.env.HOME || '~', core.getInput('dir') ?? '');
   if (dir) {
+    console.log(`Changing into ${dir}`);
     process.chdir(dir);
   }
 
@@ -64,6 +65,7 @@ async function run(): Promise<void> {
     )}\n${fixUrl(npmUrl)}:_authToken=${npmToken}`
   );
 
+  await exec('pwd');
   await exec('env');
   await exec('cat .npmrc');
 
