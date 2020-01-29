@@ -21,7 +21,7 @@ const fixUrl = (url: string): string =>
   `//${url.replace(/^\/*/, '').replace(/\/*$/, '')}/`;
 
 async function run(): Promise<void> {
-  const dir = path.join(process.env.HOME || '~', core.getInput('dir') ?? '');
+  const dir = core.getInput('dir');
   if (dir) {
     console.log(`Changing into ${dir}`);
     process.chdir(dir);
@@ -67,7 +67,7 @@ async function run(): Promise<void> {
 
   await exec('pwd');
   await exec('env');
-  await exec('cat .npmrc');
+  await exec(`cat ${path.join(process.env.HOME || '~', '.npmrc')}`);
 
   await exec(`npm whoami --registry https:${fixUrl(npmUrl)}`);
 
