@@ -13,10 +13,6 @@ inputs:
     dir:
         description: "Custom package directory in a monorepo"
         required: false
-    public:
-        description: "Indicate if the package should be publicly available or not. Defaults to false."
-        required: false
-        default: false
 runs:
     using: "node12"
     main: "lib/main.js"
