@@ -42,14 +42,14 @@ async function run(): Promise<void> {
 
   const packageFile = './package.json';
   const pkg = JSON.parse((await fs.readFile(packageFile)).toString());
-  if (!pkg.name.match(/^@tv4-media\//)) {
-    core.setFailed('Cannot publish packages outside @tv4-media scope');
+  if (!pkg.name.match(/^@tv4\//)) {
+    core.setFailed('Cannot publish packages outside @tv4 scope');
     return;
   }
 
   await fs.writeFile(
     path.join(process.env.HOME || '~', '.npmrc'),
-    `registry=https://registry.npmjs.org/\n@tv4-media:registry=https:${fixUrl(
+    `registry=https://registry.npmjs.org/\n@tv4:registry=https:${fixUrl(
       npmUrl
     )}\n${fixUrl(npmUrl)}:_authToken=${npmToken}`
   );
