@@ -47,18 +47,15 @@ async function run(): Promise<void> {
     return;
   }
 
+  const fixedNpmUrl = fixUrl(npmUrl);
+
   await fs.writeFile(
-    path.join(process.env.HOME || '~', '.npmrc'),
-    `registry=https://registry.npmjs.org/\n@tv4:registry=https:${fixUrl(
-      npmUrl
-    )}\n${fixUrl(npmUrl)}:_authToken=${npmToken}`
+    '.npmrc',
+    `registry=https://registry.npmjs.org/\n@tv4:registry=https:${fixedNpmUrl}\n${fixedNpmUrl}:_authToken=${npmToken}`
   );
 
-  await exec('pwd');
-  await exec('env');
-  await exec(`cat ${path.join(process.env.HOME || '~', '.npmrc')}`);
-
-  await exec(`npm whoami --registry https:${fixUrl(npmUrl)}`);
+  /* ensure access to GPR */
+  await exec(`npm whoami --registry https:${fixedNpmUrl}`);
 
   /* check if the deps where installed in a previous step */
   const isInstalled = await isDir('node_modules');

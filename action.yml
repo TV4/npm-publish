@@ -1,9 +1,9 @@
-name: "Publish to NPM"
-description: "Publishes @tv4-media Javascript packages to NPM(Github Packages)"
+name: "Publish to GPR"
+description: "Publishes @tv4 Javascript packages to GPR(Github Packages Repository)"
 author: "Fredrik Westmark <fredrik.westmark@tv4.se>"
 inputs:
     npmurl:
-        description: "Url to your NPM service of choice. Defaults to Github Packages"
+        description: "Url to your NPM service of choice. Defaults to GPR"
         required: false
         default: "npm.pkg.github.com"
     token:
